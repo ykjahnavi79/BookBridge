@@ -1,0 +1,23 @@
+{
+  "name": "book-bridge-workspace",
+  "version": "1.0.0",
+  "description": "BookBridge - Peer-to-Peer Book Exchange & Sharing Platform",
+  "scripts": {
+    "server": "npm --prefix backend start",
+    "server:dev": "npm --prefix backend run dev",
+    "client": "npm --prefix book_exchange run dev",
+    "client:build": "npm --prefix book_exchange run build",
+    "build": "npm --prefix book_exchange run build",
+    "seed": "npm --prefix backend run seed"
+  },
+  "keywords": [
+    "book-exchange",
+    "react",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC"
+}
+
