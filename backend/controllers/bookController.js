@@ -421,5 +421,6 @@ module.exports = {
     getBookById,
     updateBook,
     toggleAvailability,
-    deleteBook
+    deleteBook,
+    sampleBooks
 };

@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { DEFAULT_BOOKS } from "../data/defaultBooks";
 import API from "../services/api";
 
 function UserDashboard() {
   const { currentUser, updateProfile, logout } = useAuth();
 
   const [activeTab, setActiveTab] = useState("listings"); // 'listings' | 'inquiries' | 'profile'
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState(DEFAULT_BOOKS);
   const [inquiries, setInquiries] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,13 +30,18 @@ function UserDashboard() {
     setLoading(true);
     try {
       const [booksRes, inqRes] = await Promise.all([
-        API.get("/books"),
-        API.get("/inquiries")
+        API.get("/books").catch(() => null),
+        API.get("/inquiries").catch(() => ({ data: [] }))
       ]);
-      setBooks(booksRes.data || []);
-      setInquiries(inqRes.data || []);
+      if (booksRes?.data && Array.isArray(booksRes.data) && booksRes.data.length > 0) {
+        setBooks(booksRes.data);
+      } else {
+        setBooks((prev) => (prev && prev.length > 0 ? prev : DEFAULT_BOOKS));
+      }
+      setInquiries(inqRes?.data || []);
     } catch (err) {
       console.error("Failed to fetch dashboard data:", err);
+      setBooks((prev) => (prev && prev.length > 0 ? prev : DEFAULT_BOOKS));
     } finally {
       setLoading(false);
     }

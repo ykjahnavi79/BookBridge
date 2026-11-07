@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vignan's University - Modern Front-End Frameworks Lab Project Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 15mm 15mm 15mm 15mm;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+      color: #1a1a1a;
+      background: #f8fafc;
+      margin: 0;
+      padding: 24px;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+    .document-page {
+      background: #ffffff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 36px 44px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border-radius: 6px;
+    }
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .document-page {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Print Button */
+    .print-btn-bar {
+      max-width: 900px;
+      margin: 0 auto 16px auto;
+      text-align: right;
+    }
+    .btn-print {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    }
+    .btn-print:hover {
+      background: #1d4ed8;
+    }
+
+    /* University Header */
+    .header-container {
+      text-align: center;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 16px;
+    }
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 8px;
+    }
+    .vignan-shield {
+      width: 72px;
+      height: 82px;
+      flex-shrink: 0;
+    }
+    .vignan-text-box {
+      text-align: left;
+    }
+    .vignan-title-red {
+      font-family: 'Arial Black', Impact, sans-serif;
+      font-size: 42px;
+      color: #e50914;
+      line-height: 1;
+      letter-spacing: -0.5px;
+      font-weight: 900;
+      margin: 0;
+    }
+    .vignan-subtitle {
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #0f172a;
+      margin: 3px 0 0 0;
+      text-transform: uppercase;
+    }
+    .blue-banner {
+      background: #0077ff;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin-top: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Student Info Table */
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px 0;
+      font-size: 13px;
+    }
+    .meta-table td {
+      padding: 7px 12px;
+      border: 1px solid #cbd5e1;
+      vertical-align: middle;
+    }
+    .meta-table .label-col {
+      background: #f1f5f9;
+      font-weight: 700;
+      width: 25%;
+      color: #334155;
+    }
+    .meta-table .val-col {
+      width: 25%;
+      color: #0f172a;
+    }
+    .meta-table .wide-val {
+      width: 75%;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    /* Section Headings */
+    h2.section-header {
+      color: #0f172a;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #e2e8f0;
+      padding: 7px 12px;
+      margin: 22px 0 10px 0;
+      border-left: 5px solid #0077ff;
+      border-radius: 2px;
+    }
+    h3.sub-header {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1e40af;
+      margin: 14px 0 6px 0;
+      text-transform: uppercase;
+    }
+
+    /* Text & Lists */
+    p {
+      margin: 6px 0;
+      text-align: justify;
+    }
+    ul, ol {
+      margin: 6px 0;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+
+    /* Code Blocks */
+    .code-title {
+      font-family: Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 5px 12px;
+      border-radius: 5px 5px 0 0;
+      border: 1px solid #bae6fd;
+      border-bottom: none;
+      margin-top: 12px;
+      display: inline-block;
+    }
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: Consolas, 'Fira Code', 'Courier New', Courier, monospace;
+      font-size: 11px;
+      line-height: 1.45;
+      padding: 12px 14px;
+      border-radius: 0 5px 5px 5px;
+      overflow-x: auto;
+      margin: 0 0 14px 0;
+      border: 1px solid #1e293b;
+    }
+    code {
+      font-family: Consolas, monospace;
+      font-size: 11.5px;
+      background: #f1f5f9;
+      color: #be123c;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* Screenshot Placeholder Box */
+    .screenshot-box {
+      border: 2px dashed #94a3b8;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      margin: 12px 0 18px 0;
+      color: #64748b;
+    }
+    .screenshot-box .icon {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+    .screenshot-box .caption {
+      font-weight: 700;
+      color: #334155;
+      font-size: 12.5px;
+      margin-top: 4px;
+    }
+    .screenshot-box .note {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    /* Project Tree Box */
+    .tree-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      padding: 12px;
+      font-family: Consolas, monospace;
+      font-size: 11.5px;
+      line-height: 1.35;
+      margin: 8px 0 16px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-btn-bar no-print">
+    <button class="btn-print" onclick="window.print()">
+      🖨️ Print / Save as PDF
+    </button>
+  </div>
+
+  <div class="document-page">
+    
+    <!-- COLLEGE HEADER BANNER -->
+    <div class="header-container">
+      <div class="logo-row">
+        <!-- Vignan Crest SVG -->
+        <svg class="vignan-shield" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 3L92 18V55C92 84 50 110 50 110C50 110 8 84 8 55V18L50 3Z" fill="#818cf8" stroke="#4f46e5" stroke-width="4"/>
+          <path d="M50 12L84 24V55C84 78 50 100 50 100C50 100 16 78 16 55V24L50 12Z" fill="#c7d2fe"/>
+          <circle cx="50" cy="54" r="28" stroke="#1d4ed8" stroke-width="6" fill="#60a5fa"/>
+          <!-- Spokes & Star -->
+          <line x1="50" y1="26" x2="50" y2="82" stroke="#ffffff" stroke-width="5"/>
+          <line x1="26" y1="40" x2="74" y2="68" stroke="#ffffff" stroke-width="5"/>
+          <line x1="26" y1="68" x2="74" y2="40" stroke="#ffffff" stroke-width="5"/>
+          <circle cx="50" cy="54" r="10" fill="#1d4ed8"/>
+          <polygon points="50,47 52.5,52 58,52.5 53.5,56 55,61 50,58 45,61 46.5,56 42,52.5 47.5,52" fill="#ffffff"/>
+        </svg>
+
+        <div class="vignan-text-box">
+          <h1 class="vignan-title-red">VIGNAN'S</h1>
+          <div class="vignan-subtitle">FOUNDATION FOR SCIENCE, TECHNOLOGY & RESEARCH</div>
+        </div>
+      </div>
+
+      <div class="blue-banner">
+        (Deemed to be University) - Estd. u/s 3 of UGC Act 1956
+      </div>
+    </div>
+
+    <!-- STUDENT & COURSE META TABLE -->
+    <table class="meta-table">
+      <tr>
+        <td class="label-col">Course Code:</td>
+        <td class="val-col"><strong>24CS810</strong></td>
+        <td class="label-col">Faculty Signature:</td>
+        <td class="val-col"></td>
+      </tr>
+      <tr>
+        <td class="label-col">Course Name:</td>
+        <td class="val-col" colspan="3">
+          <strong>Modern Front-End Frameworks and SPA Development</strong>
+        </td>
+      </tr>
+      <tr>
+        <td class="label-col">NAME OF STUDENT:</td>
+        <td class="val-col" colspan="3"><strong>KOMALA JAHNAVI</strong></td>
+      </tr>
+      <tr>
+        <td class="label-col">REGD NO:</td>
+        <td class="val-col"><strong>241FA04000</strong> <em>(Fill Registered Roll No)</em></td>
+        <td class="label-col">SECTION:</td>
+        <td class="val-col"><strong>CSE-A / B</strong></td>
+      </tr>
+      <tr>
+        <td class="label-col">PROJECT TITLE:</td>
+        <td class="wide-val" colspan="3">
+          <strong>BookBridge — Peer-to-Peer Book Exchange & Marketplace Full Stack Single Page Application</strong>
+        </td>
+      </tr>
+    </table>
+
+    <!-- AIM -->
+    <h2 class="section-header">AIM:</h2>
+    <p>
+      To develop a modern full stack single-page web application (SPA) using the <strong>MERN Stack (MongoDB, Express.js, React.js, and Node.js)</strong> that facilitates peer-to-peer book exchange and marketplace management. The platform allows readers to search, filter, list, exchange, and purchase pre-loved books, featuring multi-source image capture (device camera snapshot and PC upload), role-based authentication (Reader Community Member and Super Administrator), interactive analytics dashboards, and RESTful API communication with persistent storage in MongoDB.
+    </p>
+
+    <!-- SOFTWARE REQUIREMENTS -->
+    <h2 class="section-header">SOFTWARE REQUIREMENTS:</h2>
+    <ul>
+      <li><strong>Operating System:</strong> Windows 10 / 11</li>
+      <li><strong>Frontend:</strong> React.js 19, Vite, React Router DOM (v7), Bootstrap 5, Axios, CSS3, HTML5</li>
+      <li><strong>Backend:</strong> Node.js (v20+) & Express.js (v5)</li>
+      <li><strong>Database:</strong> MongoDB / MongoDB Atlas (Cloud NoSQL Database)</li>
+      <li><strong>ODM Library:</strong> Mongoose (v8)</li>
+      <li><strong>Code Editor:</strong> Visual Studio Code</li>
+      <li><strong>Web Browser:</strong> Google Chrome / Microsoft Edge</li>
+      <li><strong>Package Manager:</strong> npm (Node Package Manager)</li>
+    </ul>
+
+    <!-- OBJECTIVE -->
+    <h2 class="section-header">OBJECTIVE:</h2>
+    <ol>
+      <li>To architect a responsive, single-page application (SPA) utilizing React 19 functional components, custom hooks, and React Router for client-side routing without full page refreshes.</li>
+      <li>To build a modular RESTful backend API using Express.js following MVC patterns (Models, Controllers, Routes) for complete CRUD operations on books, users, and reader inquiries.</li>
+      <li>To model schematized MongoDB collections via Mongoose with data types, enums, defaults, timestamps, and relational object references.</li>
+      <li>To implement an intelligent multi-source image uploader with automated client-side canvas compression for local files, native mobile device camera triggers, and live webcam capture.</li>
+      <li>To provide role-based authentication and navigation with distinct dashboards for regular readers (bookshelf management, proposal inbox) and administrators (catalog supervision, category/genre breakdowns, user governance, 1-click database seeding, and data export).</li>
+    </ol>
+
+    <!-- PROJECT STRUCTURE -->
+    <h2 class="section-header">PROJECT STRUCTURE:</h2>
+    <div class="tree-box">
+book_project/
+├── backend/
+│   ├── config/
+│   │   └── db.js                 # MongoDB connection & diagnostics
+│   ├── controllers/
+│   │   ├── adminController.js    # Platform analytics & catalog governance
+│   │   ├── authController.js     # User registration, login & roles
+│   │   ├── bookController.js     # Book CRUD, search, filter & seed logic
+│   │   └── inquiryController.js  # Reader swap proposals & inquiry messaging
+│   ├── models/
+│   │   ├── Book.js               # Book listing schema
+│   │   ├── Inquiry.js            # Reader swap proposal schema
+│   │   └── User.js               # User account & role schema
+│   ├── routes/
+│   │   ├── adminRoutes.js        # /api/admin
+│   │   ├── authRoutes.js         # /api/auth
+│   │   ├── bookRoutes.js         # /api/books
+│   │   └── inquiryRoutes.js      # /api/inquiries
+│   ├── .env                      # Environment variables (PORT, MONGO_URI)
+│   ├── package.json              # Backend dependencies
+│   ├── seed.js                   # Database initialization script
+│   └── server.js                 # Express server & API routes mount
+│
+└── book_exchange/                # Frontend SPA (React.js + Vite)
+    ├── src/
+    │   ├── components/
+    │   │   ├── BookCard.jsx      # Reusable book presentation card with badges
+    │   │   ├── Footer.jsx        # Footer component
+    │   │   ├── ImageUploader.jsx # PC upload with canvas compression & camera snapshot
+    │   │   └── Navbar.jsx        # Navigation bar with role indicators
+    │   ├── context/
+    │   │   └── AuthContext.jsx   # Authentication context & user state
+    │   ├── data/
+    │   │   └── defaultBooks.js   # Fallback catalog & preview dataset
+    │   ├── pages/
+    │   │   ├── AddBook.jsx       # Book creation form with camera uploader
+    │   │   ├── AdminDashboard.jsx# Admin portal with genre/category breakdown
+    │   │   ├── BookDetails.jsx   # Details view & swap proposal modal
+    │   │   ├── Books.jsx         # Full catalog with search & multi-filter toolbar
+    │   │   ├── Home.jsx          # Homepage & featured books section
+    │   │   ├── Login.jsx         # Sign in & registration portal
+    │   │   └── UserDashboard.jsx # Reader personal dashboard & inquiries inbox
+    │   ├── services/
+    │   │   └── api.js            # Axios REST API client
+    │   ├── app.jsx               # Application route definitions
+    │   ├── index.css             # Custom utility & layout styling
+    │   └── main.jsx              # React root entry point
+    ├── index.html                # HTML template
+    └── package.json              # Frontend dependencies
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SOURCE CODE -->
+    <h2 class="section-header">SOURCE CODE:</h2>
+
+    <h3 class="sub-header">BACKEND (Node.js, Express & Mongoose)</h3>
+
+    <div class="code-title">backend/models/Book.js</div>
+    <pre><code>const mongoose = require("mongoose");
+
+const bookSchema = new mongoose.Schema({
+    title:        { type: String, required: true },
+    author:       { type: String, required: true },
+    category:     { type: String, required: true },
+    description:  { type: String, default: "" },
+    condition:    { type: String, enum: ["New", "Good", "Average"], default: "Good" },
+    exchangeType: { type: String, enum: ["Exchange", "Sell", "Free"], required: true },
+    price:        { type: Number, default: 0 },
+    image:        { type: String, default: "" },
+    availability: { type: Boolean, default: true },
+    ownerId:      { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
+    ownerName:    { type: String, default: "Community Reader" },
+    ownerEmail:   { type: String, default: "community@bookbridge.com" }
+}, { timestamps: true });
+
+module.exports = mongoose.model("Book", bookSchema);</code></pre>
+
+    <div class="code-title">backend/models/User.js</div>
+    <pre><code>const mongoose = require("mongoose");
+
+const userSchema = new mongoose.Schema({
+    name:     { type: String, required: true, trim: true },
+    email:    { type: String, required: true, unique: true, lowercase: true, trim: true },
+    password: { type: String, required: true },
+    role:     { type: String, enum: ["user", "admin"], default: "user" },
+    avatar:   { type: String, default: "" },
+    phone:    { type: String, default: "" },
+    location: { type: String, default: "" },
+    bio:      { type: String, default: "" },
+    status:   { type: String, enum: ["active", "suspended"], default: "active" }
+}, { timestamps: true });
+
+module.exports = mongoose.model("User", userSchema);</code></pre>
+
+    <div class="code-title">backend/models/Inquiry.js</div>
+    <pre><code>const mongoose = require("mongoose");
+
+const inquirySchema = new mongoose.Schema({
+    bookId:       { type: mongoose.Schema.Types.ObjectId, ref: "Book", default: null },
+    bookTitle:    { type: String, required: true },
+    bookImage:    { type: String, default: "" },
+    senderName:   { type: String, required: true },
+    senderEmail:  { type: String, required: true },
+    senderPhone:  { type: String, default: "" },
+    message:      { type: String, default: "" },
+    exchangeType: { type: String, default: "Exchange" },
+    status:       { type: String, enum: ["Pending", "Accepted", "Declined"], default: "Pending" },
+    ownerEmail:   { type: String, default: "" }
+}, { timestamps: true });
+
+module.exports = mongoose.model("Inquiry", inquirySchema);</code></pre>
+
+    <div class="code-title">backend/routes/bookRoutes.js</div>
+    <pre><code>const express = require("express");
+const router = express.Router();
+const {
+    seedBooks, addBook, getBooks, getBookById,
+    updateBook, toggleAvailability, deleteBook
+} = require("../controllers/bookController");
+
+router.post("/seed", seedBooks);
+router.post("/", addBook);
+router.get("/", getBooks);
+router.get("/:id", getBookById);
+router.put("/:id", updateBook);
+router.patch("/:id/toggle", toggleAvailability);
+router.delete("/:id", deleteBook);
+
+module.exports = router;</code></pre>
+
+    <div class="code-title">backend/controllers/bookController.js (Key CRUD & Filtering Logic)</div>
+    <pre><code>const Book = require("../models/Book");
+
+// GET ALL BOOKS (with keyword search, category, condition, exchangeType, sort)
+exports.getBooks = async (req, res) => {
+    try {
+        const { search, category, exchangeType, condition, availability, sort } = req.query;
+        let filter = {};
+
+        if (search && search.trim() !== "") {
+            const regex = new RegExp(search.trim(), "i");
+            filter.$or = [{ title: regex }, { author: regex }, { category: regex }, { description: regex }];
+        }
+        if (category && category !== "All") filter.category = new RegExp(`^${category.trim()}$`, "i");
+        if (exchangeType && exchangeType !== "All") filter.exchangeType = exchangeType;
+        if (condition && condition !== "All") filter.condition = condition;
+        if (availability !== undefined && availability !== "All") filter.availability = (availability === "true");
+
+        let sortOption = { createdAt: -1 };
+        if (sort === "price-asc") sortOption = { price: 1 };
+        if (sort === "price-desc") sortOption = { price: -1 };
+        if (sort === "title-asc") sortOption = { title: 1 };
+
+        const books = await Book.find(filter).sort(sortOption);
+        res.status(200).json(books);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// CREATE A NEW BOOK
+exports.addBook = async (req, res) => {
+    try {
+        const { title, author, category, description, condition, exchangeType, price, image, ownerName, ownerEmail } = req.body;
+        const newBook = new Book({
+            title, author, category, description, condition, exchangeType,
+            price: exchangeType === "Sell" ? Number(price) : 0,
+            image: image || "",
+            ownerName: ownerName || "Community Reader",
+            ownerEmail: ownerEmail || "community@bookbridge.com"
+        });
+        const savedBook = await newBook.save();
+        res.status(201).json({ message: "Book listed successfully", book: savedBook });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// TOGGLE BOOK AVAILABILITY
+exports.toggleAvailability = async (req, res) => {
+    try {
+        const book = await Book.findById(req.params.id);
+        if (!book) return res.status(404).json({ message: "Book not found" });
+        book.availability = !book.availability;
+        await book.save();
+        res.status(200).json({ message: "Availability toggled", book });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// DELETE BOOK
+exports.deleteBook = async (req, res) => {
+    try {
+        const deleted = await Book.findByIdAndDelete(req.params.id);
+        if (!deleted) return res.status(404).json({ message: "Book not found" });
+        res.status(200).json({ message: "Book deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};</code></pre>
+
+    <div class="code-title">backend/server.js</div>
+    <pre><code>require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
+
+const bookRoutes = require("./routes/bookRoutes");
+const authRoutes = require("./routes/authRoutes");
+const inquiryRoutes = require("./routes/inquiryRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(express.json({ limit: "10mb" })); // Supports Base64 image uploads
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+// Connect Database
+connectDB();
+
+// API Endpoints
+app.use("/api/books", bookRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/inquiries", inquiryRoutes);
+app.use("/api/admin", adminRoutes);
+
+app.get("/", (req, res) => {
+    res.json({ message: "BookBridge API Operational", status: "Running" });
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));</code></pre>
+
+    <div class="code-title">backend/.env</div>
+    <pre><code>PORT=5000
+MONGO_URI=mongodb+srv://ykjahnavi79_db_user:SISHKmJH2v6CKd9r@bookbridgecluster.7n7fgyy.mongodb.net/bookbridge?retryWrites=true&w=majority</code></pre>
+
+    <div class="page-break"></div>
+
+    <h3 class="sub-header">FRONTEND (React.js, SPA Router & Context)</h3>
+
+    <div class="code-title">book_exchange/src/app.jsx</div>
+    <pre><code>import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Books from "./pages/Books";
+import AddBook from "./pages/AddBook";
+import BookDetails from "./pages/BookDetails";
+import Login from "./pages/Login";
+import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+
+export default function App() {
+  return (
+    &lt;AuthProvider&gt;
+      &lt;BrowserRouter&gt;
+        &lt;Navbar /&gt;
+        &lt;main className="main-content"&gt;
+          &lt;Routes&gt;
+            &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+            &lt;Route path="/books" element={&lt;Books /&gt;} /&gt;
+            &lt;Route path="/add-book" element={&lt;AddBook /&gt;} /&gt;
+            &lt;Route path="/books/:id" element={&lt;BookDetails /&gt;} /&gt;
+            &lt;Route path="/login" element={&lt;Login /&gt;} /&gt;
+            &lt;Route path="/user-dashboard" element={&lt;UserDashboard /&gt;} /&gt;
+            &lt;Route path="/admin-dashboard" element={&lt;AdminDashboard /&gt;} /&gt;
+            &lt;Route path="*" element={&lt;Navigate to="/" replace /&gt;} /&gt;
+          &lt;/Routes&gt;
+        &lt;/main&gt;
+        &lt;Footer /&gt;
+      &lt;/BrowserRouter&gt;
+    &lt;/AuthProvider&gt;
+  );
+}</code></pre>
+
+    <div class="code-title">book_exchange/src/services/api.js</div>
+    <pre><code>import axios from "axios";
+
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api"
+});
+
+export default API;</code></pre>
+
+    <div class="code-title">book_exchange/src/components/BookCard.jsx</div>
+    <pre><code>import { useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function BookCard({ book }) {
+  const [imageError, setImageError] = useState(false);
+
+  const getExchangeClass = (type) =>
+    type === "Sell" ? "badge-sell" : type === "Free" ? "badge-free" : "badge-exchange";
+
+  return (
+    &lt;div className="col-sm-6 col-md-4 col-lg-4 mb-4"&gt;
+      &lt;div className="card h-100 book-card shadow-sm d-flex flex-column"&gt;
+        &lt;div className="book-cover-wrapper position-relative"&gt;
+          {book.image &amp;&amp; !imageError ? (
+            &lt;img src={book.image} alt={book.title} className="book-cover-img" onError={() =&gt; setImageError(true)} /&gt;
+          ) : (
+            &lt;div className="book-cover-fallback"&gt;📖 {book.title}&lt;/div&gt;
+          )}
+          {!book.availability &amp;&amp; (
+            &lt;div className="position-absolute top-0 start-0 w-100 bg-dark bg-opacity-75 text-white text-center py-1 fw-bold small"&gt;
+              Exchanged / Reserved
+            &lt;/div&gt;
+          )}
+          &lt;div className="position-absolute bottom-0 start-0 p-2 d-flex gap-1 flex-wrap"&gt;
+            &lt;span className={`badge ${getExchangeClass(book.exchangeType)}`}&gt;{book.exchangeType}&lt;/span&gt;
+            &lt;span className="badge bg-light text-dark border"&gt;{book.condition}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className="card-body d-flex flex-column"&gt;
+          &lt;span className="badge bg-secondary mb-1 align-self-start"&gt;{book.category}&lt;/span&gt;
+          &lt;h5 className="card-title fw-bold"&gt;{book.title}&lt;/h5&gt;
+          &lt;p className="card-subtitle text-muted small mb-2"&gt;by {book.author}&lt;/p&gt;
+          &lt;div className="mt-auto pt-2 border-top d-flex justify-content-between align-items-center"&gt;
+            &lt;span className="fw-bold fs-5 text-primary"&gt;
+              {book.exchangeType === "Sell" ? `₹${book.price}` : book.exchangeType}
+            &lt;/span&gt;
+            &lt;Link to={`/books/${book._id}`} className="btn btn-outline-primary btn-sm rounded-pill"&gt;
+              View Details
+            &lt;/Link&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+    <div class="code-title">book_exchange/src/components/ImageUploader.jsx (Multi-Source Photo Upload)</div>
+    <pre><code>import { useState, useRef } from "react";
+
+export default function ImageUploader({ onImageSelected, currentImage }) {
+  const [sourceMode, setSourceMode] = useState("file"); // 'file' | 'camera' | 'url'
+  const [cameraActive, setCameraActive] = useState(false);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  // Canvas Image Compression (Converts any uploaded file to lightweight Base64)
+  const compressImage = (file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const maxDim = 800;
+        let w = img.width, h = img.height;
+        if (w > h &amp;&amp; w > maxDim) { h = Math.round((h * maxDim) / w); w = maxDim; }
+        else if (h > maxDim) { w = Math.round((w * maxDim) / h); h = maxDim; }
+        canvas.width = w; canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+        onImageSelected(canvas.toDataURL("image/jpeg", 0.75));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Camera Live Capture
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      videoRef.current.srcObject = stream;
+      videoRef.current.play();
+      setCameraActive(true);
+    } catch { alert("Camera access denied or unavailable."); }
+  };
+
+  const takeSnapshot = () => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    canvas.getContext("2d").drawImage(video, 0, 0);
+    onImageSelected(canvas.toDataURL("image/jpeg", 0.8));
+    stopCamera();
+  };
+
+  const stopCamera = () => {
+    if (videoRef.current?.srcObject) videoRef.current.srcObject.getTracks().forEach(t => t.stop());
+    setCameraActive(false);
+  };
+
+  return (
+    &lt;div className="border rounded-4 p-3 bg-light"&gt;
+      &lt;div className="btn-group w-100 mb-3"&gt;
+        &lt;button type="button" className={`btn btn-sm ${sourceMode === "file" ? "btn-primary" : "btn-outline-primary"}`} onClick={() =&gt; setSourceMode("file")}&gt;📁 Upload PC&lt;/button&gt;
+        &lt;button type="button" className={`btn btn-sm ${sourceMode === "camera" ? "btn-primary" : "btn-outline-primary"}`} onClick={() =&gt; setSourceMode("camera")}&gt;📷 Live Camera&lt;/button&gt;
+        &lt;button type="button" className={`btn btn-sm ${sourceMode === "url" ? "btn-primary" : "btn-outline-primary"}`} onClick={() =&gt; setSourceMode("url")}&gt;🔗 Image URL&lt;/button&gt;
+      &lt;/div&gt;
+
+      {sourceMode === "file" &amp;&amp; (
+        &lt;input type="file" accept="image/*" className="form-control" onChange={(e) =&gt; e.target.files[0] &amp;&amp; compressImage(e.target.files[0])} /&gt;
+      )}
+
+      {sourceMode === "camera" &amp;&amp; (
+        &lt;div className="text-center"&gt;
+          {!cameraActive ? (
+            &lt;button type="button" onClick={startCamera} className="btn btn-outline-dark btn-sm"&gt;🎥 Open Camera Viewfinder&lt;/button&gt;
+          ) : (
+            &lt;div&gt;
+              &lt;video ref={videoRef} style={{ width: "100%", maxHeight: "240px", borderRadius: "8px" }} /&gt;
+              &lt;div className="mt-2 d-flex gap-2 justify-content-center"&gt;
+                &lt;button type="button" onClick={takeSnapshot} className="btn btn-danger btn-sm"&gt;📸 Take Snapshot&lt;/button&gt;
+                &lt;button type="button" onClick={stopCamera} className="btn btn-secondary btn-sm"&gt;Cancel&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          )}
+          &lt;canvas ref={canvasRef} style={{ display: "none" }} /&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+    <div class="code-title">book_exchange/src/pages/Books.jsx (Search, Multi-Filter Toolbar)</div>
+    <pre><code>import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import API from "../services/api";
+import BookCard from "../components/BookCard";
+
+const CATEGORIES = ["All", "Fiction", "Non-Fiction", "Sci-Fi", "Academic", "Self-Help", "Fantasy", "Biography"];
+
+export default function Books() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [books, setBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const search = searchParams.get("search") || "";
+  const category = searchParams.get("category") || "All";
+  const [searchInput, setSearchInput] = useState(search);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [searchParams]);
+
+  const fetchBooks = async () => {
+    setLoading(true);
+    try {
+      const res = await API.get("/books", { params: { search, category } });
+      setBooks(res.data);
+    } catch {
+      // Fallback
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setSearchParams({ search: searchInput, category });
+  };
+
+  return (
+    &lt;div className="container py-4"&gt;
+      &lt;h2 className="fw-bold mb-3"&gt;Explore Books Catalog&lt;/h2&gt;
+      &lt;form onSubmit={handleSearchSubmit} className="input-group mb-4"&gt;
+        &lt;input type="text" className="form-control" placeholder="Search by title, author, genre..." value={searchInput} onChange={(e) =&gt; setSearchInput(e.target.value)} /&gt;
+        &lt;button className="btn btn-primary" type="submit"&gt;Search&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;div className="d-flex gap-2 flex-wrap mb-4"&gt;
+        {CATEGORIES.map((cat) =&gt; (
+          &lt;button key={cat} className={`btn btn-sm rounded-pill ${category === cat ? "btn-dark" : "btn-outline-secondary"}`} onClick={() =&gt; setSearchParams({ search, category: cat })}&gt;
+            {cat}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;div className="row"&gt;
+        {books.map((book) =&gt; &lt;BookCard key={book._id} book={book} /&gt;)}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+    <div class="code-title">book_exchange/src/pages/AdminDashboard.jsx (Genre Breakdown & Analytics)</div>
+    <pre><code>import { useState, useEffect } from "react";
+import API from "../services/api";
+
+export default function AdminDashboard() {
+  const [stats, setStats] = useState(null);
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    API.get("/admin/stats").then(res => setStats(res.data)).catch(() => {});
+    API.get("/books").then(res => setBooks(res.data)).catch(() => {});
+  }, []);
+
+  const totalBooks = stats?.metrics?.totalBooks ?? books.length;
+  const categories = stats?.breakdowns?.categories || {};
+
+  return (
+    &lt;div className="container py-4"&gt;
+      &lt;h3 className="fw-bold mb-4"&gt;Administrator Portal &amp; Analytics&lt;/h3&gt;
+      &lt;div className="row g-4"&gt;
+        &lt;div className="col-md-6"&gt;
+          &lt;div className="card p-4 rounded-4 shadow-sm"&gt;
+            &lt;h5 className="fw-bold mb-3"&gt;Genre / Category Breakdown&lt;/h5&gt;
+            {Object.entries(categories).map(([cat, count]) =&gt; {
+              const percent = Math.round((count / (totalBooks || 1)) * 100);
+              return (
+                &lt;div key={cat} className="mb-2"&gt;
+                  &lt;div className="d-flex justify-content-between small fw-semibold"&gt;
+                    &lt;span&gt;{cat}&lt;/span&gt;&lt;span&gt;{count} books ({percent}%)&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div className="progress" style={{ height: "8px" }}&gt;
+                    &lt;div className="progress-bar bg-primary" style={{ width: `${percent}%` }} /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              );
+            })}
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+
+    <div class="page-break"></div>
+
+    <!-- STEPS TO RUN -->
+    <h2 class="section-header">STEPS TO RUN THE PROJECT:</h2>
+    <ol>
+      <li><strong>Start Database:</strong> Ensure MongoDB is running locally on <code>mongodb://127.0.0.1:27017</code> or ensure the cloud MongoDB Atlas connection URI is set in <code>backend/.env</code>.</li>
+      <li><strong>Run Backend API Server:</strong>
+        <ul>
+          <li>Open a terminal in the <code>backend/</code> directory.</li>
+          <li>Run <code>npm install</code> to install backend dependencies (express, mongoose, cors, dotenv).</li>
+          <li>Execute <code>node server.js</code> or <code>npm run dev</code>. The server will start and log: <code>BookBridge Backend Server running on port 5000</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Run Frontend React Application:</strong>
+        <ul>
+          <li>Open a second terminal in the <code>book_exchange/</code> directory.</li>
+          <li>Run <code>npm install</code> to install frontend dependencies (react, react-dom, react-router-dom, bootstrap, axios).</li>
+          <li>Run <code>npm run dev</code> to start the Vite development server.</li>
+        </ul>
+      </li>
+      <li><strong>Open Application:</strong> Open Google Chrome or Microsoft Edge and navigate to the local URL displayed by Vite (typically <code>http://localhost:5173</code>).</li>
+      <li><strong>(Optional) Seed Database:</strong> In the Administrator portal or via terminal (<code>node seed.js</code>), click <strong>"Seed 15 Books"</strong> to populate sample records with authors, prices, conditions, and categories.</li>
+    </ol>
+
+    <!-- OUTPUT SCREENSHOTS -->
+    <h2 class="section-header">OUTPUT: [Paste Your Outputs Here]</h2>
+
+    <div class="screenshot-box">
+      <div class="icon">🖼️</div>
+      <div class="caption">Figure 1: Application Home Page & Hero Showcase</div>
+      <div class="note">[Paste screenshot of http://localhost:5173 showing the BookBridge header, hero banner, featured carousel, and navigation links here]</div>
+    </div>
+
+    <div class="screenshot-box">
+      <div class="icon">🔍</div>
+      <div class="caption">Figure 2: Books Catalog with Full-Text Search and Category Filters</div>
+      <div class="note">[Paste screenshot of /books page demonstrating keyword search query and dynamic category filtering (Fiction, Academic, Self-Help)]</div>
+    </div>
+
+    <div class="screenshot-box">
+      <div class="icon">📷</div>
+      <div class="caption">Figure 3: Multi-Source Image Uploader (PC Upload & Live Camera Capture)</div>
+      <div class="note">[Paste screenshot of /add-book showing the multi-tab photo selector with file upload, canvas compression, and live webcam capture viewfinder]</div>
+    </div>
+
+    <div class="screenshot-box">
+      <div class="icon">👤</div>
+      <div class="caption">Figure 4: Reader / Community Member Dashboard (`/user-dashboard`)</div>
+      <div class="note">[Paste screenshot showing reader's personal bookshelf, availability toggles ("Available" vs "Exchanged"), and swap inquiry messages inbox]</div>
+    </div>
+
+    <div class="screenshot-box">
+      <div class="icon">🛡️</div>
+      <div class="caption">Figure 5: Super Administrator Portal with Genre Breakdown Analytics (`/admin-dashboard`)</div>
+      <div class="note">[Paste screenshot showing the platform KPI cards, Genre/Category Breakdown progress bars, and exchange distribution charts]</div>
+    </div>
+
+    <div class="screenshot-box">
+      <div class="icon">🗄️</div>
+      <div class="caption">Figure 6: MongoDB Atlas / MongoDB Compass Stored Collections</div>
+      <div class="note">[Paste screenshot of MongoDB database showing stored JSON documents in the `books`, `users`, and `inquiries` collections]</div>
+    </div>
+
+    <!-- RESULT -->
+    <h2 class="section-header">RESULT:</h2>
+    <p>
+      The full stack web application <strong>BookBridge</strong> was successfully designed, developed, and deployed following the Single-Page Application (SPA) architecture using the MERN stack. The React front end executes responsive client-side routing, state management, search/filtering, and multimedia capture, communicating seamlessly with the Express/Node.js REST API. Persistent CRUD operations, user role authorization, and platform analytics were verified with live data stored in MongoDB.
+    </p>
+
+  </div>
+
+</body>
+</html>
+
